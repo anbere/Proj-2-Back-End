@@ -1,0 +1,29 @@
+CREATE TABLE Users (
+    Username VARCHAR(100) PRIMARY KEY,
+    Password VARCHAR(100) NOT NULL,
+    Email VARCHAR(100) NOT NULL,
+    FirstName VARCHAR(100) NOT NULL,
+    LastName VARCHAR(100) NOT NULL,
+    PhoneNumber VARCHAR(10) NOT NULL,
+    PRIMARY KEY (Username)
+);
+
+CREATE TABLE Transactions (
+    TRX_ID INT NOT NULL AUTO_INCREMENT,
+    Type VARCHAR(100) NOT NULL,
+    Amount DECIMAL(10,2) NOT NULL,
+    Comment VARCHAR(100) NOT NULL,
+    Date DATE NOT NULL,
+    Status VARCHAR(100) NOT NULL,
+    Origin VARCHAR(100),
+    Destination VARCHAR(100),
+    PRIMARY KEY (TRX_ID),
+    FOREIGN KEY TRX_FK1 (Origin) REFERENCES Users(Username),
+    FOREIGN KEY TRX_FK2 (Destination) REFERENCES Users(Username)
+);
+
+CREATE TABLE Account (
+    ACC_ID INT NOT NULL AUTO_INCREMENT,
+    Balance DECIMAL(10,2) NOT NULL,
+    PRIMARY KEY (ACC_ID)
+)
