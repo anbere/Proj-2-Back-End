@@ -17,7 +17,8 @@ public class UserController {
   private final UserService userService;
 
   @Autowired //userService above will be instantiated and injected into this constructor
-  public UserController(UserService userService) {
+  public UserController(UserService userService)
+  {
     this.userService = userService;
   }
 
@@ -27,7 +28,8 @@ public class UserController {
   }
 
   @PostMapping
-  public void registerNewUser(@RequestBody User user) {
+  public void registerNewUser(@RequestBody User user)
+  {
     userService.addNewUser(user);
   }
 }
