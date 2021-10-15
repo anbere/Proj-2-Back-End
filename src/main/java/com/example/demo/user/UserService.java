@@ -33,7 +33,6 @@ public class UserService {
       throw new IllegalStateException("Email is taken");
     }
 
-    user.setAccount(new Account());
     System.out.println(user);
   }
 }

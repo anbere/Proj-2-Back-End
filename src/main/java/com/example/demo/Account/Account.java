@@ -25,12 +25,18 @@ public class Account {
     )
     @Column(name = "account_id")
     private Long id;
-    private Double balance;
+    private double balance;
     private String routingNumber;
 
-    @OneToOne(mappedBy = "account")
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            mappedBy ="account")
     private User user;
 
-
+    public Account(double balance, String routingNumber)
+    {
+        this.balance = balance;
+        this.routingNumber = routingNumber;
+    }
 
 }

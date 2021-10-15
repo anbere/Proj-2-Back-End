@@ -34,7 +34,7 @@ public class User {
   private String firstName;
   private String lastName;
 
-  @OneToOne(cascade = CascadeType.ALL)
+  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinColumn(name = "account_id")
   private Account account;
 
@@ -45,7 +45,6 @@ public class User {
     this.email = email;
     this.firstName = firstName;
     this.lastName = lastName;
-
   }
 
 }

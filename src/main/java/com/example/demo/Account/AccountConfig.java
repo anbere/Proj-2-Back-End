@@ -11,7 +11,6 @@ public class AccountConfig {
     @Bean
     CommandLineRunner commandLineRunner(AccountRepository accountRepository)
     {
-        //accountRepository.saveAll(List.of());
-        return null;
+       return null;
     }
 }

@@ -27,7 +27,7 @@ public class UserConfig {
           "Flores"
       );
 
-      repository.saveAll(Arrays.asList(anbers, averagesizedRod));
+      //repository.saveAll(Arrays.asList(anbers, averagesizedRod));
     };
   }
 }
