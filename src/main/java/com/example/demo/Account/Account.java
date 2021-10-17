@@ -13,6 +13,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "account")
 public class Account {
+
     @Id
     @SequenceGenerator(
             name = "account_sequence",
@@ -28,9 +29,7 @@ public class Account {
     private double balance;
     private String routingNumber;
 
-    @OneToOne(fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL,
-            mappedBy ="account")
+    @OneToOne(mappedBy = "account")
     private User user;
 
     public Account(double balance, String routingNumber)

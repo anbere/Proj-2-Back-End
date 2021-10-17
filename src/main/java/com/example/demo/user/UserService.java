@@ -24,6 +24,10 @@ public class UserService {
     return userRepository.findAll();
   }
 
+  public void LoginCheck(String username, String password) {
+
+  }
+
   public void addNewUser(User user) {
     Optional<User> userByUsername = userRepository.findUserByUsername(user.getUsername());
     Optional<User> userByEmail = userRepository.findUserByEmail(user.getEmail());
@@ -33,6 +37,10 @@ public class UserService {
       throw new IllegalStateException("Email is taken");
     }
 
+    Account account = new Account();
+    user.setAccount(account);
+
+    userRepository.save(user);
     System.out.println(user);
   }
 }
