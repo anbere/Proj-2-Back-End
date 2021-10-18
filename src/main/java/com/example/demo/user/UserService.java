@@ -24,12 +24,19 @@ public class UserService {
     return userRepository.findAll();
   }
 
-  public void LoginCheck(String username, String password) {
+  public Optional<User> LoginCheck(String username, String password) {
+    Optional<User> userByUsername = userRepository.findByUsername(username);
+    if(userByUsername.isPresent() && userByUsername.get().getPassword().equals(password)){
+        System.out.println("From userservice: " + userByUsername.get());
+        return userByUsername;
+      }
+
+    throw new IllegalStateException("User not found");
 
   }
 
   public void addNewUser(User user) {
-    Optional<User> userByUsername = userRepository.findUserByUsername(user.getUsername());
+    Optional<User> userByUsername = userRepository.findByUsername(user.getUsername());
     Optional<User> userByEmail = userRepository.findUserByEmail(user.getEmail());
     if(userByUsername.isPresent()) {
       throw new IllegalStateException("Username is taken");

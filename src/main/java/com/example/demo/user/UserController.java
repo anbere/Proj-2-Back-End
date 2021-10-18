@@ -1,8 +1,11 @@
 package com.example.demo.user;
 
 import java.util.List;
+import java.util.Optional;
+
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -24,8 +27,18 @@ public class UserController {
   }
 
   @PostMapping(path="/login")
-  public void loginCheck(@RequestBody User user) {
-      System.out.println("username: " + user.getUsername() + " password: " + user.getPassword());
+  public ResponseEntity<User> loginCheck(@RequestBody User user) {
+
+      try {
+        Optional<User> loggingUser = userService.LoginCheck(user.getUsername(), user.getPassword());
+        System.out.println(loggingUser.get());
+        return ResponseEntity.ok(loggingUser.get());
+      }catch(IllegalStateException e)
+      {
+        System.out.println(e.getMessage());
+        return null;
+      }
+
   }
 
   @PostMapping
