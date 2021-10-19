@@ -1,11 +1,10 @@
 package com.example.demo.user;
 
-import com.example.demo.Account.Account;
+import com.example.demo.account.Account;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import javax.persistence.*;
 

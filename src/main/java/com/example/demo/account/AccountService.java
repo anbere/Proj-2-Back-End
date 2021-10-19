@@ -1,11 +1,9 @@
-package com.example.demo.Account;
+package com.example.demo.account;
 
-import com.example.demo.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AccountService {

@@ -1,11 +1,13 @@
-package com.example.demo.Account;
+package com.example.demo.account;
 
+import com.example.demo.transaction.Transaction;
 import com.example.demo.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -31,6 +33,12 @@ public class Account {
 
     @OneToOne(mappedBy = "account")
     private User user;
+
+    @OneToMany(targetEntity = Transaction.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "trx_id")
+    private List<Transaction> transactions;
+
+
 
     public Account(double balance, String routingNumber)
     {

@@ -1,8 +1,5 @@
 package com.example.demo.user;
 
-import java.util.Arrays;
-
-import com.example.demo.Account.Account;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
