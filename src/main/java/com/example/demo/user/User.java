@@ -25,7 +25,6 @@ public class User {
       strategy = GenerationType.SEQUENCE,
       generator = "user_sequence"
   )
-
   private Long id;
   @Column(unique=true)
   private String email;
