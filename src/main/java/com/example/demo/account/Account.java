@@ -1,4 +1,4 @@
-package com.example.demo.Account;
+package com.example.demo.account;
 
 import com.example.demo.user.User;
 import lombok.AllArgsConstructor;

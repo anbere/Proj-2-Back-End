@@ -1,11 +1,11 @@
 package com.example.demo.user;
 
-import java.util.Arrays;
-
-import com.example.demo.Account.Account;
+import com.example.demo.account.Account;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.Arrays;
 
 @Configuration
 public class UserConfig {
@@ -36,7 +36,11 @@ public class UserConfig {
 //
 //      averagesizedRod.setAccount(account2);
 //      account2.setUser(averagesizedRod);
-//      repository.saveAll(Arrays.asList(anbers, averagesizedRod));
+      Account account = new Account();
+      Account account2 = new Account();
+      anbers.setAccount(account);
+      averagesizedRod.setAccount(account2);
+      repository.saveAll(Arrays.asList(anbers, averagesizedRod));
     };
   }
 }

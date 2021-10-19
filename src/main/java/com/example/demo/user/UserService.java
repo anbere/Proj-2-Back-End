@@ -3,9 +3,7 @@ package com.example.demo.user;
 import java.util.List;
 import java.util.Optional;
 
-import com.example.demo.Account.Account;
-import com.example.demo.Account.AccountRepository;
-import com.example.demo.Account.AccountService;
+import com.example.demo.account.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

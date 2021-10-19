@@ -1,5 +1,6 @@
 package com.example.demo.user;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,9 +43,19 @@ public class UserController {
   }
 
   @PostMapping
-  public void registerNewUser(@RequestBody User user)
+  public ResponseEntity<HashMap<String, Object>> registerNewUser(@RequestBody User user)
   {
-    userService.addNewUser(user);
-//    System.out.println("new user");
+    HashMap<String, Object> response = new HashMap<>();
+
+    try {
+      userService.addNewUser(user);
+      response.put("success", true);
+      response.put("message", "");
+      return ResponseEntity.ok(response);
+    }catch(IllegalStateException e) {
+      response.put("success", false);
+      response.put("message", e.getMessage());
+      return ResponseEntity.ok(response);
+    }
   }
 }
