@@ -1,5 +1,10 @@
 package com.example.demo;
 
+import com.example.demo.account.Account;
+import com.example.demo.account.AccountRepository;
+import com.example.demo.user.User;
+import com.example.demo.user.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

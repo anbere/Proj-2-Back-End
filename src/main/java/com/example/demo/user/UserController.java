@@ -33,7 +33,9 @@ public class UserController {
       try {
         Optional<User> loggingUser = userService.LoginCheck(user.getUsername(), user.getPassword());
         System.out.println(loggingUser.get());
-        return ResponseEntity.ok(loggingUser.get());
+        User responseUser = loggingUser.get();
+        responseUser.setPassword(null);
+        return ResponseEntity.ok(responseUser);
       }catch(IllegalStateException e)
       {
         System.out.println(e.getMessage());
