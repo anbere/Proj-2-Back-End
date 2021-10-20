@@ -35,7 +35,7 @@ public class Account {
     private User user;
 
     @OneToMany(targetEntity = Transaction.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "trx_id")
+    @JoinColumn(name = "origin")
     private List<Transaction> transactions;
 
 
