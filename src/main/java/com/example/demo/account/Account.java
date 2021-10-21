@@ -35,7 +35,7 @@ public class Account {
     private User user;
 
     @OneToMany(targetEntity = Transaction.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "trx_id")
+    @JoinColumn(name = "origin")		//this links the sender and the transaction 
     private List<Transaction> transactions;
 
 

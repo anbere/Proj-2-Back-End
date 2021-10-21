@@ -29,6 +29,7 @@ public class UserController {
 
   @PostMapping(path="/login")
   public ResponseEntity<User> loginCheck(@RequestBody User user) {
+	  System.out.println(user);
 
       try {
         Optional<User> loggingUser = userService.LoginCheck(user.getUsername(), user.getPassword());

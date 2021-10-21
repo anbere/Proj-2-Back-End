@@ -16,7 +16,7 @@ public class UserConfig {
       User anbers = new User(
           "anbers",
           "password",
-          "andres@gmail.com",
+          "andres@gmasdfail.com",
           "Andres",
           "Rodriguez"
       );
@@ -40,6 +40,8 @@ public class UserConfig {
       Account account2 = new Account();
       anbers.setAccount(account);
       averagesizedRod.setAccount(account2);
+      
+      
       repository.saveAll(Arrays.asList(anbers, averagesizedRod));
     };
   }

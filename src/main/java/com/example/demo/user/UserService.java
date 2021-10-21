@@ -28,9 +28,7 @@ public class UserService {
         System.out.println("From userservice: " + userByUsername.get());
         return userByUsername;
       }
-
     throw new IllegalStateException("User not found");
-
   }
 
   public void addNewUser(User user) {
