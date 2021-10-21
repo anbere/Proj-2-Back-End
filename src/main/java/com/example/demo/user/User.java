@@ -2,13 +2,13 @@ package com.example.demo.user;
 
 import com.example.demo.account.Account;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Data
+@ToString(exclude = {"account"})
+@EqualsAndHashCode(exclude = {"account"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -35,7 +35,7 @@ public class User {
   private String lastName;
 
   @JsonIgnore
-  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = false)
   @JoinColumn(name = "account_id")
   private Account account;
 
@@ -53,7 +53,7 @@ public class User {
     this.password = password;
   }
 
-  @Override
+  /*@Override
   public String toString() {
     return "User{" +
             "id=" + id +
@@ -63,5 +63,5 @@ public class User {
             ", firstName='" + firstName + '\'' +
             ", lastName='" + lastName + '\'' +
             '}';
-  }
+  }*/
 }

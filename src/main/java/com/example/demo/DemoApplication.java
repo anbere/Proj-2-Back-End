@@ -1,18 +1,7 @@
 package com.example.demo;
 
-import com.example.demo.account.Account;
-import com.example.demo.account.AccountRepository;
-import com.example.demo.transaction.Transaction;
-import com.example.demo.transaction.TransactionRepository;
-import com.example.demo.transaction.TransactionService;
-import com.example.demo.user.User;
-import com.example.demo.user.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.time.LocalDate;
-import java.util.Date;
 
 
 @SpringBootApplication

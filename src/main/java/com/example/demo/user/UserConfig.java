@@ -5,25 +5,19 @@ import com.example.demo.account.AccountRepository;
 import com.example.demo.transaction.Transaction;
 import com.example.demo.transaction.TransactionRepository;
 import com.example.demo.transaction.TransactionService;
-import com.example.demo.account.AccountRepository;
-import com.example.demo.transaction.Transaction;
-import com.example.demo.transaction.TransactionRepository;
-import com.example.demo.transaction.TransactionService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Optional;
 import java.util.List;
+import java.util.Optional;
 
 @Configuration
 public class UserConfig {
 
   @Bean
-  CommandLineRunner commandLineRunner2(UserRepository userRepository, AccountRepository accountRepository, TransactionRepository transactionRepository) {
+  CommandLineRunner commandLineRunner3(UserRepository userRepository, TransactionRepository transactionRepository, AccountRepository accountRepository) {
     return args -> {
       User anbers = new User(
           "anbers",
@@ -42,7 +36,48 @@ public class UserConfig {
       );
       User u = new User("T", "M", "t@gmail.com", "tm", "mi");
 
-      userRepository.saveAllAndFlush(Arrays.asList(anbers, averagesizedRod, u));
+      Account account1 = new Account(543.75, "34523239");
+      Account account2 = new Account(743.65, "43243123");
+      Account account3 = new Account(400);
+
+      anbers.setAccount(account1);
+      account1.setUser(anbers);
+
+      averagesizedRod.setAccount(account2);
+      account2.setUser(averagesizedRod);
+
+      u.setAccount(account3);
+      account3.setUser(u);
+
+      userRepository.saveAll(Arrays.asList(anbers, averagesizedRod, u));
+
+      Optional<User> user = userRepository.findByUsername("T");
+
+      /*System.out.println("Before " + user.get().getAccount().getBalance());
+      Transaction deposit = new Transaction(500);
+      deposit.setOrigin(user.get().getAccount());
+      deposit.setDestination(user.get().getAccount());
+      TransactionService service = new TransactionService(transactionRepository, userRepository);
+      service.deposit(deposit,"T");
+      System.out.println("After: " + user.get().getAccount().getBalance());
+
+      List<Transaction> t = service.getTransactions();
+      System.out.println(t);*/
+
+      System.out.println("Before " + anbers.getAccount().getBalance());
+      System.out.println("Before (Me)" + u.getAccount().getBalance());
+
+      Transaction pay = new Transaction("pay", 30, "I had a great time at dinner." );
+      pay.setOrigin(anbers.getAccount());
+      pay.setDestination(u.getAccount());
+      TransactionService service = new TransactionService(transactionRepository, userRepository);
+      service.addNewTransaction(pay, anbers.getUsername(), u.getUsername());
+
+      System.out.println("After: " + anbers.getAccount().getBalance());
+      System.out.println("After: (Me)" + u.getAccount().getBalance());
+
+      List<Transaction> t = service.getTransactions();
+      System.out.println(t);
 
       //Optional<User> op = userRepository.findById(3L);
       //System.out.println("hi");

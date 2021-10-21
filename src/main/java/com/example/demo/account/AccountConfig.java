@@ -6,9 +6,9 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class AccountConfig {
-    @Bean
+    /*@Bean
     CommandLineRunner commandLineRunner(AccountRepository accountRepository)
     {
        return null;
-    }
+    }*/
 }
