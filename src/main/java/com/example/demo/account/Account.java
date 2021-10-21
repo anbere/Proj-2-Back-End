@@ -2,14 +2,14 @@ package com.example.demo.account;
 
 import com.example.demo.transaction.Transaction;
 import com.example.demo.user.User;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Data
+@ToString(exclude = {"origin", "destination"})
+@EqualsAndHashCode(exclude = {"origin", "destination"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -34,9 +34,12 @@ public class Account {
     @OneToOne(mappedBy = "account")
     private User user;
 
-    @OneToMany(targetEntity = Transaction.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "trx_id")
-    private List<Transaction> transactions;
+    @OneToMany(mappedBy = "origin", fetch = FetchType.EAGER)
+//    @JoinColumn(name = "trx_id")
+    private List<Transaction> origin;
+    @OneToMany(mappedBy = "destination", fetch = FetchType.EAGER)
+//    @JoinColumn(name = "trx_id")
+    private List<Transaction> destination;
 
 
 
@@ -44,6 +47,11 @@ public class Account {
     {
         this.balance = balance;
         this.routingNumber = routingNumber;
+    }
+
+    public Account(double balance)
+    {
+        this.balance = balance;
     }
 
 }

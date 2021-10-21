@@ -39,7 +39,6 @@ public class UserController {
         System.out.println(e.getMessage());
         return ResponseEntity.ok(new User());
       }
-
   }
 
   @PostMapping

@@ -1,13 +1,15 @@
 package com.example.demo.transaction;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.example.demo.account.Account;
+import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
+@ToString (exclude = {"origin", "destination"})
+@EqualsAndHashCode (exclude = {"origin", "destination"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -28,7 +30,25 @@ public class Transaction {
     private String type;
     private double amount;
     private String comment;
-    private Date date;
+    private LocalDate date;
     private String status;
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    private Account origin;
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    private Account destination;
 
+    public Transaction(String type, double amount, String comment) {
+        this.type = type;
+        this.amount = amount;
+        this.comment = comment;
+        this.date = LocalDate.now();
+        this.status = "pending";
+    }
+
+    public Transaction(double amount)
+    {
+        this.amount = amount;
+        this.date = LocalDate.now();
+        this.status = "pending";
+    }
 }
