@@ -1,5 +1,6 @@
 package com.example.demo.transaction;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -43,24 +44,25 @@ public class Transaction {
     private String type;
     private double amount;
     private String comment;
-    private Date date;
+    private LocalDate date;
     private String status;
-    
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     private Account origin;
-//    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH })
-    private long destination;
-    
-	public Transaction(String type, double amount, String comment, Date date, String status, long destination) {
-		super();
-		this.type = type;
-		this.amount = amount;
-		this.comment = comment;
-		this.date = date;
-		this.status = status;
-	}
-    
-    
-    
-    
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    private Account destination;
+
+    public Transaction(String type, double amount, String comment) {
+        this.type = type;
+        this.amount = amount;
+        this.comment = comment;
+        this.date = LocalDate.now();
+        this.status = "pending";
+    }
+
+    public Transaction(double amount)
+    {
+        this.amount = amount;
+        this.date = LocalDate.now();
+        this.status = "pending";
+    }
 }

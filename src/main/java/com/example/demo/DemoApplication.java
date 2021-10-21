@@ -41,5 +41,14 @@
 //    account2.setUser(a);
 //    userRepository.save(anbers);
 //    userRepository.save(a);
-//  }*/
-//}
+//
+//    accountRepository.save(account1);
+//    accountRepository.save(account2);
+//
+//    Transaction transaction = new Transaction("pay", 200, "testing if this sends", LocalDate.now(), "posted", account1.getId(), account2.getId());
+//    TransactionService transactionService = new TransactionService(transactionRepository);
+//    transactionService.addNewTransaction(transaction);
+//    transactionRepository.save(transaction);
+
+  // }
+}

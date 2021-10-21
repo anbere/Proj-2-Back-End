@@ -4,12 +4,16 @@ import com.example.demo.transaction.Transaction;
 import com.example.demo.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Data
+@ToString(exclude = {"origin", "destination"})
+@EqualsAndHashCode(exclude = {"origin", "destination"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -34,8 +38,13 @@ public class Account {
     @OneToOne(mappedBy = "account")
     private User user;
 
+    @OneToMany(mappedBy = "origin", fetch = FetchType.EAGER)
+//    @JoinColumn(name = "trx_id")
+    private List<Transaction> origin;
+    @OneToMany(mappedBy = "destination", fetch = FetchType.EAGER)
+//    @JoinColumn(name = "trx_id")
+    private List<Transaction> destination;
     @OneToMany(targetEntity = Transaction.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "origin")		//this links the sender and the transaction 
     private List<Transaction> transactions;
 
 
@@ -44,6 +53,11 @@ public class Account {
     {
         this.balance = balance;
         this.routingNumber = routingNumber;
+    }
+
+    public Account(double balance)
+    {
+        this.balance = balance;
     }
 
 }
