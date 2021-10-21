@@ -8,8 +8,8 @@ import java.time.LocalDate;
 import java.util.Date;
 
 @Data
-@ToString(exclude = {"origin"})
-@EqualsAndHashCode(exclude = {"origin"}) //(exclude = {"origin", "destination"})
+@ToString (exclude = {"origin", "destination"})
+@EqualsAndHashCode (exclude = {"origin", "destination"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -34,15 +34,21 @@ public class Transaction {
     private String status;
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     private Account origin;
-    //@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
-    private long destination;
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    private Account destination;
 
-    public Transaction(String type, double amount, String comment, LocalDate date, String status, long destination) {
+    public Transaction(String type, double amount, String comment) {
         this.type = type;
         this.amount = amount;
         this.comment = comment;
-        this.date = date;
-        this.status = status;
-        this.destination = destination;
+        this.date = LocalDate.now();
+        this.status = "pending";
+    }
+
+    public Transaction(double amount)
+    {
+        this.amount = amount;
+        this.date = LocalDate.now();
+        this.status = "pending";
     }
 }

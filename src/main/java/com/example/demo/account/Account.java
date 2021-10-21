@@ -10,6 +10,8 @@ import javax.persistence.*;
 import java.util.List;
 
 @Data
+@ToString(exclude = {"origin", "destination"})
+@EqualsAndHashCode(exclude = {"origin", "destination"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -34,8 +36,14 @@ public class Account {
     @OneToOne(mappedBy = "account")
     private User user;
 
+    @OneToMany(mappedBy = "origin", fetch = FetchType.EAGER)
+//    @JoinColumn(name = "trx_id")
+    private List<Transaction> origin;
+    @OneToMany(mappedBy = "destination", fetch = FetchType.EAGER)
+//    @JoinColumn(name = "trx_id")
+    private List<Transaction> destination;
     @OneToMany(targetEntity = Transaction.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "origin")
+
     private List<Transaction> transactions;
 
 
@@ -44,6 +52,11 @@ public class Account {
     {
         this.balance = balance;
         this.routingNumber = routingNumber;
+    }
+
+    public Account(double balance)
+    {
+        this.balance = balance;
     }
 
 }
