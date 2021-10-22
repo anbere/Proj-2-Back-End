@@ -38,7 +38,7 @@ public class UserConfig {
 
       Account account1 = new Account(543.75, "34523239");
       Account account2 = new Account(743.65, "43243123");
-      Account account3 = new Account(400);
+      Account account3 = new Account(400, "4324334");
 
       anbers.setAccount(account1);
       account1.setUser(anbers);
@@ -69,12 +69,14 @@ public class UserConfig {
 
       Transaction pay = new Transaction("pay", 30, "I had a great time at dinner." );
       pay.setOrigin(anbers.getAccount());
+      System.out.println("origin anbers: " + pay.getOrigin().toString());
       pay.setDestination(u.getAccount());
-      TransactionService service = new TransactionService(transactionRepository, userRepository);
+      System.out.println("origin MEEEEEEEEEEE: " + pay.getDestination().toString());
+      TransactionService service = new TransactionService(transactionRepository, userRepository, accountRepository);
       service.addNewTransaction(pay, anbers.getUsername(), u.getUsername());
 
-      System.out.println("After: " + anbers.getAccount().getBalance());
-      System.out.println("After: (Me)" + u.getAccount().getBalance());
+      System.out.println("After anbers:" + anbers.getAccount().getBalance());
+      System.out.println("After ME:" + u.getAccount().getBalance());
 
       List<Transaction> t = service.getTransactions();
       System.out.println(t);

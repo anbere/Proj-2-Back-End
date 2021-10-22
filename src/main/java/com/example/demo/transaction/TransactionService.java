@@ -6,6 +6,7 @@ import com.example.demo.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,10 +18,11 @@ public class TransactionService {
     private UserRepository userRepository;
 
     @Autowired
-    public TransactionService(TransactionRepository transactionRepository, UserRepository userRepository)
+    public TransactionService(TransactionRepository transactionRepository, UserRepository userRepository, AccountRepository accountRepository)
     {
         this.transactionRepository = transactionRepository;
         this.userRepository = userRepository;
+        this.accountRepository = accountRepository;
     }
 
     public List<Transaction> getTransactions()
@@ -31,18 +33,19 @@ public class TransactionService {
     public Transaction addNewTransaction(Transaction transaction, String originUsername, String destinationUsername)
     {
         Optional<User> optionalOrigin = userRepository.findByUsername(originUsername);
+        System.out.println("origin: " + optionalOrigin.get());
         Optional<User> optionalDestination = userRepository.findByUsername(destinationUsername);
-
+        System.out.println("desti: " + optionalDestination.get());
         /*Optional<Account> optional = accountRepository.findById(transaction.getOrigin().getId());
         Optional<Account> optional2 = accountRepository.findById(transaction.getDestination().getId());*/
 
         if(optionalOrigin.isPresent() && optionalDestination.isPresent() && transaction.getAmount() > 0)
         {
+
             System.out.println("Inside setting account" + optionalOrigin.get().getAccount());
             System.out.println("Inside setting account" + optionalDestination.get().getAccount());
             transaction.setOrigin(optionalOrigin.get().getAccount());
             transaction.setDestination(optionalDestination.get().getAccount());
-
             System.out.println("Inside setting account to transaction origin: " + transaction.getOrigin());
             System.out.println("Inside setting account: " +  transaction.getDestination());
 
@@ -65,7 +68,9 @@ public class TransactionService {
 
                 transaction.setStatus("success");
                 transactionRepository.save(transaction);
+                accountRepository.saveAll(Arrays.asList(transaction.getOrigin(), transaction.getOrigin()));
                 return transaction;
+
 
                 /*optionalOrigin.get().getAccount().setBalance(accountBalance - amount);
                 optionalDestination.get().getAccount().setBalance(accountBalance2 + amount);*/
@@ -92,7 +97,8 @@ public class TransactionService {
 
         if(depositor.isPresent() && transaction.getAmount() > 0)
         {
-
+            /*transaction.setOrigin(depositor.get().getAccount());
+            transaction.setDestination(depositor.get().getAccount());*/
             double balance = depositor.get().getAccount().getBalance();
             double amount = transaction.getAmount();
             transaction.getOrigin().setBalance(balance);
