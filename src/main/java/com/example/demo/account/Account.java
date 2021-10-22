@@ -13,7 +13,6 @@ import javax.persistence.*;
 import java.util.List;
 
 @Data
-<<<<<<< HEAD
 @ToString(exclude = {"user", "origin", "destination"})
 @EqualsAndHashCode(exclude = {"user", "origin", "destination"})
 @NoArgsConstructor
