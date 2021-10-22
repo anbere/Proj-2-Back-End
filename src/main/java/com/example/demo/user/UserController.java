@@ -60,4 +60,21 @@ public class UserController {
       return ResponseEntity.ok(response);
     }
   }
+
+  @PutMapping
+  public ResponseEntity<HashMap<String, Object>> updateUserDetails(@RequestBody User user) {
+    HashMap<String, Object> response = new HashMap<>();
+
+    try{
+      System.out.println("From user controller update: " + user);
+      User userUpdate = userService.updateUserDetails(user);
+      response.put("success", true);
+      response.put("message", "");
+      return ResponseEntity.ok(response);
+    }catch(IllegalStateException e) {
+      response.put("success", false);
+      response.put("message", e.getMessage());
+      return ResponseEntity.ok(response);
+    }
+  }
 }
