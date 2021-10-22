@@ -30,7 +30,7 @@ public class TransactionService {
         return transactionRepository.findAll();
     }
 
-    public Transaction addNewTransaction(Transaction transaction, String originUsername, String destinationUsername)
+    public Transaction payTransaction(Transaction transaction, String originUsername, String destinationUsername)
     {
         Optional<User> optionalOrigin = userRepository.findByUsername(originUsername);
         System.out.println("origin: " + optionalOrigin.get());
@@ -58,7 +58,7 @@ public class TransactionService {
                 System.out.println("destination Balance: " +  accountBalance2);
 
                 double amount = transaction.getAmount();
-                System.out.println("amount of the transaction: " +  amount);
+                System.out.println("amount of the transaction: " + amount);
 
                 transaction.getOrigin().setBalance(accountBalance - amount);
                 System.out.println("Operation to subtract from origin balance " + transaction.getOrigin().getBalance());
@@ -67,8 +67,8 @@ public class TransactionService {
                 System.out.println("Operation to add to destination balance " + transaction.getDestination().getBalance());
 
                 transaction.setStatus("success");
+                accountRepository.saveAll(Arrays.asList(transaction.getOrigin(), transaction.getDestination()));
                 transactionRepository.save(transaction);
-                accountRepository.saveAll(Arrays.asList(transaction.getOrigin(), transaction.getOrigin()));
                 return transaction;
 
 
@@ -97,24 +97,21 @@ public class TransactionService {
 
         if(depositor.isPresent() && transaction.getAmount() > 0)
         {
-            /*transaction.setOrigin(depositor.get().getAccount());
-            transaction.setDestination(depositor.get().getAccount());*/
+            transaction.setOrigin(depositor.get().getAccount());
             double balance = depositor.get().getAccount().getBalance();
             double amount = transaction.getAmount();
-            transaction.getOrigin().setBalance(balance);
-            transaction.getDestination().setBalance(balance + amount);
-        }
-        else
-        {
-            transaction.setStatus("failed");
+            transaction.getOrigin().setBalance(balance + amount);
+
+            accountRepository.save(transaction.getOrigin());
+            transaction.setStatus("success");
             transactionRepository.save(transaction);
             return transaction;
         }
 
-        transaction.setStatus("success");
-        transactionRepository.save(transaction);
-        return transaction;
-
+            //throw an user exception or invalid amount
+            transaction.setStatus("failed");
+            transactionRepository.save(transaction);
+            return transaction;
     }
 
     public void deleteTransaction()

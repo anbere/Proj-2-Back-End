@@ -17,7 +17,7 @@ import java.util.Optional;
 public class UserConfig {
 
   @Bean
-  CommandLineRunner commandLineRunner3(UserRepository userRepository, TransactionRepository transactionRepository, AccountRepository accountRepository) {
+  CommandLineRunner commandLineRunner3(UserRepository userRepository, TransactionRepository transactionRepository, AccountRepository accountRepository, TransactionService transactionService) {
     return args -> {
       User anbers = new User(
           "anbers",
@@ -64,22 +64,19 @@ public class UserConfig {
       List<Transaction> t = service.getTransactions();
       System.out.println(t);*/
 
-      System.out.println("Before " + anbers.getAccount().getBalance());
+      /*System.out.println("Before " + anbers.getAccount().getBalance());
       System.out.println("Before (Me)" + u.getAccount().getBalance());
 
-      Transaction pay = new Transaction("pay", 30, "I had a great time at dinner." );
-      pay.setOrigin(anbers.getAccount());
-      System.out.println("origin anbers: " + pay.getOrigin().toString());
-      pay.setDestination(u.getAccount());
-      System.out.println("origin MEEEEEEEEEEE: " + pay.getDestination().toString());
-      TransactionService service = new TransactionService(transactionRepository, userRepository, accountRepository);
-      service.addNewTransaction(pay, anbers.getUsername(), u.getUsername());
+      Transaction pay = new Transaction("pay", 30, "I had a great time at dinner." );*/
+      //pay.setOrigin(anbers.getAccount());
+      //System.out.println("origin anbers: " + pay.getOrigin().toString());
+      //pay.setDestination(u.getAccount());
+      //System.out.println("origin MEEEEEEEEEEE: " + pay.getDestination().toString());
+     // TransactionService service = new TransactionService(transactionRepository, userRepository, accountRepository);
+     // transactionService.payTransaction(pay, anbers.getUsername(), u.getUsername());
 
-      System.out.println("After anbers:" + anbers.getAccount().getBalance());
-      System.out.println("After ME:" + u.getAccount().getBalance());
-
-      List<Transaction> t = service.getTransactions();
-      System.out.println(t);
+      /*List<Transaction> t = transactionService.getTransactions();
+      System.out.println(t);*/
 
       //Optional<User> op = userRepository.findById(3L);
       //System.out.println("hi");
@@ -97,19 +94,15 @@ public class UserConfig {
       User u = new User("T", "M", "t@gmail.com", "t", "m");
       account3.setUser(u);
       u.setAccount(account3);
-      userRepository.saveAll(Arrays.asList(anbers, averagesizedRod, u));
+      userRepository.saveAll(Arrays.asList(anbers, averagesizedRod, u));*/
 
-      Transaction transaction = new Transaction("pay", 200, "This is working");
+      //Transaction transaction = new Transaction("pay", 200, "This is working");
       Transaction deposit = new Transaction(500);
+      transactionRepository.save(deposit);
+      transactionService.deposit(deposit, "T");
 
-      TransactionService service = new TransactionService(transactionRepository, userRepository, accountRepository);
-      service.deposit(deposit,"T");*/
 
-      /*transactionRepository.save(deposit);
-      TransactionService service = new TransactionService(transactionRepository);
-      service.deposit(deposit, "anbers");*/
-
-      /*System.out.println("accountId: " + userRepository.findByUsername("anders"));
+     /* System.out.println("accountId: " + userRepository.findByUsername("anders"));
       System.out.println("everything: " + anbers);
       System.out.println(anbers.getAccount());*/
 
