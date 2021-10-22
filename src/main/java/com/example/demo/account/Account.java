@@ -2,18 +2,27 @@ package com.example.demo.account;
 
 import com.example.demo.transaction.Transaction;
 import com.example.demo.user.User;
+<<<<<<< HEAD
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+=======
+import lombok.*;
+>>>>>>> andres
 
 import javax.persistence.*;
 import java.util.List;
 
 @Data
+<<<<<<< HEAD
 @ToString(exclude = {"origin", "destination"})
 @EqualsAndHashCode(exclude = {"origin", "destination"})
+=======
+@ToString(exclude = {"user"})
+@EqualsAndHashCode(exclude = {"user"})
+>>>>>>> andres
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity

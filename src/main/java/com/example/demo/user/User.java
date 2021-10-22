@@ -22,9 +22,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
+@ToString(exclude = {"account"})
+@EqualsAndHashCode(exclude = {"account"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -51,7 +55,7 @@ public class User {
   private String lastName;
 
   @JsonIgnore
-  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = false)
   @JoinColumn(name = "account_id")
   private Account account;
   
@@ -69,20 +73,16 @@ public class User {
     this.lastName = lastName;
   }
 
+  public User(Long id, String username, String email, String firstName, String lastName) {
+    this.id = id;
+    this.username = username;
+    this.email = email;
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
+
   public User(String username, String password) {
     this.username = username;
     this.password = password;
-  }
-
-  @Override
-  public String toString() {
-    return "User{" +
-            "id=" + id +
-            ", email='" + email + '\'' +
-            ", username='" + username + '\'' +
-            ", password='" + password + '\'' +
-            ", firstName='" + firstName + '\'' +
-            ", lastName='" + lastName + '\'' +
-            '}';
   }
 }
