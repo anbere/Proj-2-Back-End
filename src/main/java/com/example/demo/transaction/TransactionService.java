@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -71,29 +72,28 @@ public class TransactionService {
                 transactionRepository.save(transaction);
                 return transaction;
 
-
                 /*optionalOrigin.get().getAccount().setBalance(accountBalance - amount);
                 optionalDestination.get().getAccount().setBalance(accountBalance2 + amount);*/
             }
-            else{
-                System.out.println("Invalid transaction amount");
-                transaction.setStatus("failed");
-                transactionRepository.save(transaction);
-                return transaction;
-            }
-        }
-        else
-        {
-            transaction.setStatus("failed");
-            transactionRepository.save(transaction);
-            return transaction;
         }
 
+            transaction.setStatus("failed");
+            transactionRepository.save(transaction);
+
+        /*if(!optionalOrigin.isPresent())
+            throw new NoSuchElementException("Could not find your account");
+        if(!optionalDestination.isPresent())
+            throw new NoSuchElementException("Could not find friend's account");
+        if(transaction.getAmount() < 0)
+            throw new IllegalStateException("Value is not valid");*/
+
+            return transaction;
     }
 
     public Transaction deposit(Transaction transaction, String username)
     {
         Optional<User> depositor = userRepository.findByUsername(username);
+        transaction.setType("Deposit");
 
         if(depositor.isPresent() && transaction.getAmount() > 0)
         {
@@ -104,14 +104,24 @@ public class TransactionService {
 
             accountRepository.save(transaction.getOrigin());
             transaction.setStatus("success");
-            transactionRepository.save(transaction);
-            return transaction;
+            return transactionRepository.save(transaction);
+            //System.out.println(transactionRepository.save(transaction));
         }
 
-            //throw an user exception or invalid amount
-            transaction.setStatus("failed");
-            transactionRepository.save(transaction);
-            return transaction;
+        transaction.setStatus("failed");
+        transactionRepository.save(transaction);
+
+       /* if(!depositor.isPresent())
+            throw new NoSuchElementException("This account does not exist");
+        if(transaction.getAmount() < 0)
+            throw new IllegalStateException("Value is not valid");*/
+
+         return transaction;
+    }
+
+    public void requestTransaction(Transaction transaction, String origin, String destination) //will
+    {
+
     }
 
     public void deleteTransaction()
