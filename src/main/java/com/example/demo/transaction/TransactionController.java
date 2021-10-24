@@ -29,23 +29,29 @@ public class TransactionController {
     @PostMapping(path = "/pay/{origin}/{destination}")
     public ResponseEntity<Transaction> payTransaction(@RequestBody Transaction transaction, @PathVariable String origin, @PathVariable String destination)
     {
-        ResponseEntity<Transaction> transactionResponseEntity = ResponseEntity.ok(transactionService.payTransaction(transaction, origin, destination));
-        return transactionResponseEntity;
+        Transaction transactionResponseEntity = transactionService.payTransaction(transaction, origin, destination);
+        return ResponseEntity.ok(transactionResponseEntity);
     }
 
     @PostMapping(path = "/deposit/{username}")
     public ResponseEntity<Transaction> deposit(@RequestBody Transaction transaction, @PathVariable String username)
     {
         System.out.println("transcation: " + transaction + "\nusername: " + username);
-        Transaction tr = transactionService.deposit(transaction, username);
-        return ResponseEntity.ok(tr);
-        //ResponseEntity<Transaction>
+        Transaction depositTransaction = transactionService.deposit(transaction, username);
+        return ResponseEntity.ok(depositTransaction);
     }
 
     @PostMapping(path = "/request/{origin}/{destination}")
     public ResponseEntity<Transaction> requestTransaction(@RequestBody Transaction transaction, @PathVariable String origin, @PathVariable String destination)
     {
         ResponseEntity<Transaction> transactionResponseEntity = ResponseEntity.ok(transactionService.requestTransaction(transaction, origin, destination));
+        return transactionResponseEntity;
+    }
+
+    @PutMapping(path ="/accept/{choice}")
+    public ResponseEntity<Transaction> acceptRequestTransaction (@RequestBody Transaction transaction, @PathVariable String choice)
+    {
+        ResponseEntity<Transaction> transactionResponseEntity = ResponseEntity.ok(transactionService.acceptRequestTransaction(transaction, choice));
         return transactionResponseEntity;
     }
 
