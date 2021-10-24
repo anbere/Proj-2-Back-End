@@ -39,15 +39,16 @@ public class Account {
     @OneToOne(mappedBy = "account")
     private User user;
 
-    @OneToMany(mappedBy = "origin", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "origin", fetch = FetchType.LAZY)
 //    @JoinColumn(name = "trx_id")
     private List<Transaction> origin;
-    @OneToMany(mappedBy = "destination", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "destination", fetch = FetchType.LAZY)
 //    @JoinColumn(name = "trx_id")
     private List<Transaction> destination;
     @OneToMany(targetEntity = Transaction.class, cascade = CascadeType.ALL)
     private List<Transaction> transactions;
 
+   /* private List<Transaction> transactions;*/
 
 
     public Account(double balance, String routingNumber)

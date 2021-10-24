@@ -1,7 +1,11 @@
 package com.example.demo.transaction;
 
-import java.time.LocalDate;
-import java.util.Date;
+import com.example.demo.account.Account;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
+
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -44,10 +48,12 @@ public class Transaction {
     private String type;
     private double amount;
     private String comment;
-    private LocalDate date;
+    private LocalDateTime time;
     private String status;
+    @JsonIgnore
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     private Account origin;
+    @JsonIgnore
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     private Account destination;
 
@@ -55,14 +61,14 @@ public class Transaction {
         this.type = type;
         this.amount = amount;
         this.comment = comment;
-        this.date = LocalDate.now();
-        this.status = "pending";
+        /*this.date = LocalDate.now();
+        this.status = "pending";*/
     }
 
     public Transaction(double amount)
     {
         this.amount = amount;
-        this.date = LocalDate.now();
-        this.status = "pending";
+        /*this.date = LocalDate.now();
+        this.status = "pending";*/
     }
 }
