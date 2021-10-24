@@ -37,7 +37,7 @@ public class UserController {
         return ResponseEntity.ok(loggingUser.get());
       }catch(IllegalStateException e)
       {
-        System.out.println(e.getMessage());
+    	System.out.println(e.getMessage());
         return ResponseEntity.ok(new User());
       }
   }

@@ -21,6 +21,8 @@ public class UserService {
   public List<User> getUsers() {
     return userRepository.findAll();
   }
+  
+  
 
   public Optional<User> LoginCheck(String username, String password) {
     Optional<User> userByUsername = userRepository.findByUsername(username);
@@ -30,6 +32,8 @@ public class UserService {
       }
     throw new IllegalStateException("User not found");
   }
+  
+  
 
   public void addNewUser(User user) {
     Optional<User> userByUsername = userRepository.findByUsername(user.getUsername());

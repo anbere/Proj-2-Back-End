@@ -12,8 +12,8 @@ import javax.persistence.*;
 import java.util.List;
 
 @Data
-@ToString(exclude = {"origin", "destination"})
-@EqualsAndHashCode(exclude = {"origin", "destination"})
+@ToString(exclude = {"origin", "destination", "user"})
+@EqualsAndHashCode(exclude = {"origin", "destination", "user"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -38,14 +38,14 @@ public class Account {
     @OneToOne(mappedBy = "account")
     private User user;
 
-    @OneToMany(mappedBy = "origin", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "origin", fetch = FetchType.LAZY)
 //    @JoinColumn(name = "trx_id")
     private List<Transaction> origin;
-    @OneToMany(mappedBy = "destination", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "destination", fetch = FetchType.LAZY)
 //    @JoinColumn(name = "trx_id")
     private List<Transaction> destination;
-    @OneToMany(targetEntity = Transaction.class, cascade = CascadeType.ALL)
-    private List<Transaction> transactions;
+//    @OneToMany(targetEntity = Transaction.class, cascade = CascadeType.ALL)
+//    private List<Transaction> transactions;
 
 
 

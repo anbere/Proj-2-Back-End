@@ -6,8 +6,8 @@ import org.springframework.context.annotation.Bean;
 
 
 public class TransactionConfig {
-    @Bean
-    CommandLineRunner commandLineRunner2(TransactionRepository transactionRepository) {
-        return null;
-    }
+//    @Bean
+//    CommandLineRunner commandLineRunner2(TransactionRepository transactionRepository) {
+//        return null;
+//    }
 }

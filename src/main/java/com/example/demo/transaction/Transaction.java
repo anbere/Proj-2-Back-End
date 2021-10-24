@@ -1,11 +1,11 @@
 package com.example.demo.transaction;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,6 +14,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.example.demo.account.Account;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -46,9 +47,12 @@ public class Transaction {
     private String comment;
     private LocalDate date;
     private String status;
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    
+    @JsonIgnore
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     private Account origin;
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    @JsonIgnore
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     private Account destination;
 
     public Transaction(String type, double amount, String comment) {
