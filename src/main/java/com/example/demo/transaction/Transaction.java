@@ -1,6 +1,7 @@
 package com.example.demo.transaction;
 
 import com.example.demo.account.Account;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -32,8 +33,10 @@ public class Transaction {
     private String comment;
     private LocalDate date;
     private String status;
+    @JsonIgnore
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     private Account origin;
+    @JsonIgnore
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     private Account destination;
 

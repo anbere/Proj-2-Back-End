@@ -80,12 +80,12 @@ public class TransactionService {
             transaction.setStatus("failed");
             transactionRepository.save(transaction);
 
-        /*if(!optionalOrigin.isPresent())
+        if(!optionalOrigin.isPresent())
             throw new NoSuchElementException("Could not find your account");
         if(!optionalDestination.isPresent())
             throw new NoSuchElementException("Could not find friend's account");
         if(transaction.getAmount() < 0)
-            throw new IllegalStateException("Value is not valid");*/
+            throw new IllegalStateException("Value is not valid");
 
             return transaction;
     }
@@ -103,7 +103,7 @@ public class TransactionService {
             transaction.getOrigin().setBalance(balance + amount);
 
             accountRepository.save(transaction.getOrigin());
-            transaction.setStatus("success");
+            //transaction.setStatus("success");
             return transactionRepository.save(transaction);
             //System.out.println(transactionRepository.save(transaction));
         }
@@ -111,17 +111,31 @@ public class TransactionService {
         transaction.setStatus("failed");
         transactionRepository.save(transaction);
 
-       /* if(!depositor.isPresent())
+        if(!depositor.isPresent())
             throw new NoSuchElementException("This account does not exist");
         if(transaction.getAmount() < 0)
-            throw new IllegalStateException("Value is not valid");*/
+            throw new IllegalStateException("Value is not valid");
 
          return transaction;
     }
 
-    public void requestTransaction(Transaction transaction, String origin, String destination) //will
+    public Transaction requestTransaction(Transaction transaction, String originUsername, String destinationUsername)
     {
+        Optional<User> optionalOrigin = userRepository.findByUsername(originUsername);
+        Optional<User> optionalDestination = userRepository.findByUsername(destinationUsername);
 
+        if(optionalOrigin.isPresent() && optionalDestination.isPresent() && transaction.getAmount() > 0)
+        {
+            transaction.setOrigin(optionalOrigin.get().getAccount());
+            transaction.setDestination(optionalDestination.get().getAccount());
+            transaction.setStatus("pending");
+            transactionRepository.save(transaction);
+            return transaction;
+        }
+
+        transaction.setStatus("failed");
+        transactionRepository.save(transaction);
+        return transaction;
     }
 
     public void deleteTransaction()

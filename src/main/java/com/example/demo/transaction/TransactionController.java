@@ -42,4 +42,11 @@ public class TransactionController {
         //ResponseEntity<Transaction>
     }
 
+    @PostMapping(path = "/request/{origin}/{destination}")
+    public ResponseEntity<Transaction> requestTransaction(@RequestBody Transaction transaction, @PathVariable String origin, @PathVariable String destination)
+    {
+        ResponseEntity<Transaction> transactionResponseEntity = ResponseEntity.ok(transactionService.requestTransaction(transaction, origin, destination));
+        return transactionResponseEntity;
+    }
+
 }
