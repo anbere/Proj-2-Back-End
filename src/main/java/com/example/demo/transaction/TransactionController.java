@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -27,7 +27,7 @@ public class TransactionController {
     }
 
     @PostMapping(path = "/pay/{origin}/{destination}")
-    public ResponseEntity<Transaction> payTransaction(@RequestBody Transaction transaction, @PathVariable String origin, @PathVariable String destination)
+    public  ResponseEntity<Transaction> payTransaction(@RequestBody Transaction transaction, @PathVariable String origin, @PathVariable String destination)
     {
         Transaction transactionResponseEntity = transactionService.payTransaction(transaction, origin, destination);
         return ResponseEntity.ok(transactionResponseEntity);

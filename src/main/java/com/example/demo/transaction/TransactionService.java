@@ -6,8 +6,7 @@ import com.example.demo.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -50,7 +49,7 @@ public class TransactionService {
 
             transaction.setOrigin(optionalOrigin.get().getAccount());
             transaction.setDestination(optionalDestination.get().getAccount());
-            transaction.setTime(LocalTime.now());
+            transaction.setTime(LocalDateTime.now());
 
             /*System.out.println("Inside setting account to transaction origin: " + transaction.getOrigin());
             System.out.println("Inside setting account: " +  transaction.getDestination());*/
@@ -85,12 +84,12 @@ public class TransactionService {
             transaction.setStatus("failed");
             transactionRepository.save(transaction);
 
-        if(!optionalOrigin.isPresent())
+        /*if(!optionalOrigin.isPresent())
             throw new NoSuchElementException("Could not find your account");
         if(!optionalDestination.isPresent())
             throw new NoSuchElementException("Could not find friend's account");
         if(transaction.getAmount() < 0 || transaction.getAmount() < optionalOrigin.get().getAccount().getBalance())
-            throw new IllegalStateException("Value is not valid");
+            throw new IllegalStateException("Value is not valid");*/
 
             return transaction;
     }
@@ -106,9 +105,9 @@ public class TransactionService {
             double balance = depositor.get().getAccount().getBalance();
             double amount = transaction.getAmount();
             transaction.getOrigin().setBalance(balance + amount);
-            transaction.setTime(LocalTime.now());
+            transaction.setTime(LocalDateTime.now());
             accountRepository.save(transaction.getOrigin());
-            //transaction.setStatus("success");
+            transaction.setStatus("success");
             return transactionRepository.save(transaction);
             //System.out.println(transactionRepository.save(transaction));
         }
@@ -116,10 +115,10 @@ public class TransactionService {
         transaction.setStatus("failed");
         transactionRepository.save(transaction);
 
-        if(!depositor.isPresent())
+        /*if(!depositor.isPresent())
             throw new NoSuchElementException("This account does not exist");
         if(transaction.getAmount() < 0)
-            throw new IllegalStateException("Value is not valid");
+            throw new IllegalStateException("Value is not valid");*/
 
          return transaction;
     }
@@ -134,7 +133,7 @@ public class TransactionService {
             transaction.setOrigin(optionalRequester.get().getAccount());
             transaction.setDestination(optionalPayer.get().getAccount());
             transaction.setStatus("pending");
-            transaction.setTime(LocalTime.now());
+            transaction.setTime(LocalDateTime.now());
             transactionRepository.save(transaction);
             return transaction;
         }
@@ -147,7 +146,7 @@ public class TransactionService {
     public Transaction acceptRequestTransaction(Transaction transaction, String choice)
     {
         Optional<Transaction> temp = transactionRepository.findById(transaction.getId());
-        temp.get().setTime(LocalTime.now());
+        temp.get().setTime(LocalDateTime.now());
         System.out.println("TransactionId " + temp.get());
         if(temp.get().getType().equals("request") && temp.get().getStatus().equals("pending") && choice.equals("accept") && temp.get().getDestination().getBalance() >= temp.get().getAmount())
         {
@@ -163,8 +162,8 @@ public class TransactionService {
 
         temp.get().setStatus("failed");
 
-        if(transaction.getAmount() < 0 || temp.get().getAmount() < temp.get().getDestination().getBalance())
-            throw new IllegalStateException("Value is not valid");
+        /*if(transaction.getAmount() < 0 || temp.get().getAmount() < temp.get().getDestination().getBalance())
+            throw new IllegalStateException("Value is not valid");*/
 
         return transactionRepository.save(temp.get());
     }

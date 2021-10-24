@@ -3,12 +3,9 @@ package com.example.demo.transaction;
 import com.example.demo.account.Account;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Data
 @ToString (exclude = {"origin", "destination"})
@@ -33,7 +30,7 @@ public class Transaction {
     private String type;
     private double amount;
     private String comment;
-    private LocalTime time;
+    private LocalDateTime time;
     private String status;
     @JsonIgnore
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
