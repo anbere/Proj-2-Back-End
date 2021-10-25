@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,42 +19,51 @@ import com.example.demo.user.User;
 @RequestMapping(path = "api/v1/friends")
 public class FriendController {
 	
-	@Autowired
-	private FriendRepository friendRepo;
+//	@Autowired
+//	private FriendRepository friendRepo;
 	
 	private final FriendService friendService;
 	
 	
 	@Autowired
 	public FriendController(FriendService friendService) {
+		
 		this.friendService = friendService;
 	}
 	
 	
-	@GetMapping
-	public List<User> getFriends(User user){
-		return friendService.getFriends(user);
+	@PostMapping
+	public ResponseEntity<List<User>> getFriends(@RequestBody User user){
+		System.out.println("Below is User from FriendController");
+		System.out.println(user);
+		return ResponseEntity.ok(friendService.getFriends(user));
 		
 	}
 	
 	
-	@PostMapping("/addFriend")
-	public ResponseEntity<Friend> addFriend(@RequestBody Friend friend ){
+	@PostMapping("/{username}")
+	public ResponseEntity<User> addFriend(@RequestBody User user, @PathVariable String username ){
 		
-		return null;
-//		Long id = friend.getId();
+		try{
+			System.out.println("This is the USER Friend Controller: ");
+			System.out.println(user);
+			
+			System.out.println("This is the USERNAME Friend Controller: ");
+			System.out.println(username);
+			
+			
+			User addNewFriend = friendService.saveFriend(user, username);
+
+			return ResponseEntity.ok(addNewFriend);
+			
+		}catch(IllegalStateException e){
+			System.out.println(e.getMessage());
+			return ResponseEntity.ok(new User());
+			
+		}
 		
 		
-		
-		
-//		if(id !=0) {
-//			return ResponseEntity.badRequest().build();
-//		}
-//		
-//		
-//		
-//		friendRepo.save(friend);
-//		return ResponseEntity.status(201).body(friend);
+
 	}
 	
 	

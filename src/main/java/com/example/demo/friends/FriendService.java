@@ -31,7 +31,7 @@ public class FriendService {
 //		return friendRepo.findAll();
 //	}
 	
-	public void saveFriend(User userOrigin, long id) throws NullPointerException{
+	public User saveFriend(User userOrigin, String username) throws NullPointerException{
 		
 		System.out.println("Do we get inside saveFriend FriendService");
 		
@@ -45,25 +45,35 @@ public class FriendService {
         
         
         Friend friend = new Friend();
+        
         User user1 = userRepo.findByUsername(userOrigin.getUsername()).get();
         
-        User user2 = userRepo.findById(id).get();
-        User firstuser = user1;
-        User seconduser = user2;
+        Optional<User> user2Check = userRepo.findByUsername(username);
+        if(!user2Check.isPresent()) {
+        	throw new IllegalStateException("Username not found!");
+        }
+        
+        User user2 = user2Check.get();
+        User firstUser = user1;
+        User secondUser = user2;
         
        
         if(user1.getId() > user2.getId()){
-             firstuser = user2;
-             seconduser = user1;
+             firstUser = user2;
+             secondUser = user1;
         }
-        if( !(friendRepo.existsByFirstUserAndSecondUser(firstuser,seconduser)) ){
+        if( !(friendRepo.existsByFirstUserAndSecondUser(firstUser,secondUser)) ){
             friend.setDate(new Date());
-            friend.setFirstUser(firstuser);
-            friend.setSecondUser(seconduser);
+            friend.setFirstUser(firstUser);
+            friend.setSecondUser(secondUser);
             System.out.println("Before saving friend");
             friendRepo.save(friend);
             System.out.println("Below is friend");
             System.out.println(friend.toString());
+            return secondUser;
+        }
+        else {
+        	throw new IllegalStateException("Friend has already been added!");
         }
     }
 	

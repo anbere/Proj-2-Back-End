@@ -43,7 +43,7 @@ public class UserConfig {
 					"Rodrigo",
 					"Flores"
 					);
-			
+						
 			User terrell = new User(
 					"T", "M", "t@gmail.com", "tm", "mi");
 
@@ -67,18 +67,18 @@ public class UserConfig {
 			
 			
 			 //add User references Friend
-	         friendService.saveFriend(anbers, 2);
-	         
-	         friendService.saveFriend(terrell, 1);
-	         
-	         friendService.saveFriend(terrell, 2);
-	         
-	         
-	         friendService.getFriends(terrell);
-	         List<User> t = friendService.getFriends(terrell);
-	         System.out.println("Terrell's Friends");
-//	         User n = t.get(0);
-	         System.out.println(t);
+//	         friendService.saveFriend(anbers, "T");
+//	         
+//	         friendService.saveFriend(anbers, "averagesizedRod");
+//	         
+//	         friendService.saveFriend(anbers, "khai");
+//	         
+//	         
+//	         friendService.getFriends(anbers);
+//	         List<User> t = friendService.getFriends(anbers);
+//	         System.out.println("Anbers' Friends");
+////	         User n = t.get(0);
+//	         System.out.println(t);
 	         //	     t.forEach(System.out::println);
 //	         System.out.println(friendService.getFriends(terrell));
 	         
@@ -109,64 +109,7 @@ public class UserConfig {
 			
 			
 			
-//			//testing what prints out of user terrell and testing to see if the account gets printed
-//			Optional<User> terr = userRepository.findByUsername("T");
-//			System.out.println("User: " + terr);
-//			System.out.println("User: " + terr.get().getUsername() + "\nAccount Summary: " + terr.get().getAccount());
-//			
-//			
-//
-//			System.out.println("Anbers Balance Before: " + anbers.getAccount().getBalance());
-//			System.out.println("Terrell Balance Before: " + terrell.getAccount().getBalance());
-//
-//			Transaction pay = new Transaction("pay", 30, "I had a great time at dinner." );
-//			pay.setOrigin(anbers.getAccount());
-//			
-//			
-//		
-//			
-//			pay.setDestination(terrell.getAccount());
-//			
-//
-//			TransactionService service = new TransactionService(transactionRepository, userRepository);
-//			service.addNewTransaction(pay, anbers.getUsername(), terrell.getUsername());
-//
-//			System.out.println("Anbers Balance After: " + anbers.getAccount().getBalance());
-//			System.out.println("Terrell Balance After: (Me)" + terrell.getAccount().getBalance());
-//
-//			List<Transaction> t = service.getTransactions();
-//			System.out.println(t);
-
-			//			anbers.setAccount(account1);
-			//			averagesizedRod.setAccount(account2);
-			//			User u1 = new User("T", "M", "t@gmail.com", "t", "m");
-			//			account3.setUser(u1);
-			//			u1.setAccount(account3);
-			//			userRepository.saveAll(Arrays.asList(anbers, averagesizedRod, u1));
-			//
-			//			Transaction transaction = new Transaction("pay", 200, "This is working");
-			//			Transaction deposit = new Transaction(500);
-			//
-			//			TransactionService service = new TransactionService(transactionRepository, userRepository, accountRepository);
-			//			service.deposit(deposit,"T");
-			//
-			//			transactionRepository.save(deposit);
-			////			TransactionService service = new TransactionService(transactionRepository);
-			//			service.deposit(deposit, "anbers");
-			//
-			//			System.out.println("accountId: " + userRepository.findByUsername("anders"));
-			//			System.out.println("everything: " + anbers);
-			//			System.out.println(anbers.getAccount());
-			//
-			//			Transaction transaction1 = new Transaction("pending", 75.32, "This is working");
-			//			transaction1.setOrigin(account);
-			//			transaction1.setDestination(account2);
-			//			accountRepository.saveAll(Arrays.asList(account, account2));
-			//			transactionRepository.save(transaction1);
-			//			Optional<Account> account3 = accountRepository.findById(1L);
-			//			Optional<Account> account4 = accountRepository.findById(2L);
-			//			System.out.println(account3.get().getOrigin() + "\n" + account4.get().getDestination());
-			//			System.out.println("account 3 " + account3);
+		System.out.println("account 3 " + account3);
 		};
 	}
 
