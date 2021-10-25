@@ -4,9 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -26,6 +24,21 @@ public class TransactionController {
         return transactionService.getTransactions();
     }
 
+    //start of something bad
+    @GetMapping(path = "/specific/{username}")
+    public ResponseEntity<List<Transaction>> getUserTransactions(@PathVariable String username)
+    {
+        List<Transaction> transactionList = transactionService.getUserTransactions(username);
+        return ResponseEntity.ok(transactionList);
+    }
+
+    @GetMapping(path = "/specificRequest/{type}/{username}")
+    public ResponseEntity<List<Transaction>> getRequests(@PathVariable String type, @PathVariable String username)
+    {
+        List<Transaction> transactionList = transactionService.getRequests(type, username);
+        return ResponseEntity.ok(transactionList);
+    }
+
     @PostMapping(path = "/pay/{origin}/{destination}")
     public  ResponseEntity<Transaction> payTransaction(@RequestBody Transaction transaction, @PathVariable String origin, @PathVariable String destination)
     {
@@ -36,9 +49,8 @@ public class TransactionController {
     @PostMapping(path = "/deposit/{username}")
     public ResponseEntity<Transaction> deposit(@RequestBody Transaction transaction, @PathVariable String username)
     {
-        System.out.println("transcation: " + transaction + "\nusername: " + username);
-        Transaction depositTransaction = transactionService.deposit(transaction, username);
-        return ResponseEntity.ok(depositTransaction);
+        //System.out.println("transcation: " + transaction + "\nusername: " + username);
+        return ResponseEntity.ok(transactionService.deposit(transaction, username));
     }
 
     @PostMapping(path = "/request/{origin}/{destination}")

@@ -1,15 +1,16 @@
 package com.example.demo.transaction;
 
+import com.example.demo.account.Account;
 import com.example.demo.account.AccountRepository;
 import com.example.demo.user.User;
 import com.example.demo.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -30,6 +31,22 @@ public class TransactionService {
     public List<Transaction> getTransactions()
     {
         return transactionRepository.findAll();
+    }
+
+    //going to go badly
+    public List<Transaction> getUserTransactions(String username)
+    {
+        Optional<User> optionalOrigin = userRepository.findByUsername(username);
+        Account originAccount = optionalOrigin.get().getAccount();
+        List<Transaction> transactionList = transactionRepository.findByOrigin(originAccount);
+        return transactionList;
+    }
+
+    public List<Transaction> getRequests(String type, String username)
+    {
+        Optional<User> requester = userRepository.findByUsername(username);
+        Account requesterAccount = requester.get().getAccount();
+        return transactionRepository.findByTypeAndDestination(type, requesterAccount);
     }
 
     public Transaction payTransaction(Transaction transaction, String originUsername, String destinationUsername)
