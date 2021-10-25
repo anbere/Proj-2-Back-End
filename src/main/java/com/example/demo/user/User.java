@@ -28,9 +28,9 @@ import lombok.ToString;
 @Entity
 @Table
 public class User {
-	
-//	private UserRepository userRepo;
-//	private FriendRepository friendRepo;
+
+	//	private UserRepository userRepo;
+	//	private FriendRepository friendRepo;
 
 	@Id
 	@SequenceGenerator(

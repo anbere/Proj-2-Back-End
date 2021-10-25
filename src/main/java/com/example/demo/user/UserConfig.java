@@ -2,17 +2,12 @@ package com.example.demo.user;
 
 import com.example.demo.account.Account;
 import com.example.demo.account.AccountRepository;
-import com.example.demo.friends.Friend;
-import com.example.demo.friends.FriendRepository;
 import com.example.demo.friends.FriendService;
-import com.example.demo.transaction.Transaction;
 import com.example.demo.transaction.TransactionRepository;
-import com.example.demo.transaction.TransactionService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import java.util.Arrays;
+
 
 @Configuration
 public class UserConfig {
@@ -35,7 +30,7 @@ public class UserConfig {
 					"Rodrigo",
 					"Flores"
 					);
-			
+						
 			User terrell = new User(
 					"T", "M", "t@gmail.com", "tm", "mi");
 

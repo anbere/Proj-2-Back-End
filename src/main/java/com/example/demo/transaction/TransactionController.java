@@ -5,8 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -20,25 +18,30 @@ public class TransactionController {
         this.transactionService = transactionService;
     }
 
+    
     @GetMapping
-    public List<Transaction> getTransactions(){
-        return transactionService.getTransactions();
+    public ResponseEntity<List<Transaction>> getTransactions(){
+        return ResponseEntity.ok(transactionService.getTransactions());
     }
 
-    @GetMapping(path = "/specific/{username}")
+    
+    //USING THIS FOR DISPLAYING ALL TRANSACTIONS OF CURRENT USER
+    @GetMapping(path = "/transaction/{username}")
     public ResponseEntity<List<Transaction>> getUserTransactions(@PathVariable String username)
     {
         List<Transaction> transactionList = transactionService.getUserTransactions(username);
         return ResponseEntity.ok(transactionList);
     }
 
-    @GetMapping(path = "/specificRequest/{type}/{username}")
+    @GetMapping(path = "/transaction/{type}/{username}")
     public ResponseEntity<List<Transaction>> getRequests(@PathVariable String type, @PathVariable String username)
     {
         List<Transaction> transactionList = transactionService.getRequests(type, username);
         return ResponseEntity.ok(transactionList);
     }
 
+    
+    //FOR MAKING A PAYMENT TRANSACTION
     @PostMapping(path = "/pay/{origin}/{destination}")
     public  ResponseEntity<Transaction> payTransaction(@RequestBody Transaction transaction, @PathVariable String origin, @PathVariable String destination)
     {

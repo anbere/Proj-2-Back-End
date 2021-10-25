@@ -32,7 +32,6 @@ public class TransactionService {
         return transactionRepository.findAll();
     }
 
-
     public List<Transaction> getUserTransactions(String username)
     {
         Optional<User> optionalOrigin = userRepository.findByUsername(username);
