@@ -5,7 +5,6 @@ import com.example.demo.account.AccountRepository;
 import com.example.demo.user.User;
 import com.example.demo.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -33,7 +32,7 @@ public class TransactionService {
         return transactionRepository.findAll();
     }
 
-    //going to go badly
+
     public List<Transaction> getUserTransactions(String username)
     {
         Optional<User> optionalOrigin = userRepository.findByUsername(username);

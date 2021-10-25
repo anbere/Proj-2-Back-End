@@ -24,7 +24,6 @@ public class TransactionController {
         return transactionService.getTransactions();
     }
 
-    //start of something bad
     @GetMapping(path = "/specific/{username}")
     public ResponseEntity<List<Transaction>> getUserTransactions(@PathVariable String username)
     {
