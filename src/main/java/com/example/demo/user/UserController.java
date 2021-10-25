@@ -68,6 +68,7 @@ public class UserController {
     try{
       System.out.println("From user controller update: " + user);
       User userUpdate = userService.updateUserDetails(user);
+
       response.put("success", true);
       response.put("message", "");
       return ResponseEntity.ok(response);

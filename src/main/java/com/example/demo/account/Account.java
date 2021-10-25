@@ -2,6 +2,7 @@ package com.example.demo.account;
 
 import com.example.demo.transaction.Transaction;
 import com.example.demo.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -36,17 +37,18 @@ public class Account {
     private double balance;
     private String routingNumber;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "account")
     private User user;
 
-    @OneToMany(mappedBy = "origin", fetch = FetchType.EAGER)
-//    @JoinColumn(name = "trx_id")
+    @JsonIgnore
+    @OneToMany(mappedBy = "origin", fetch = FetchType.LAZY)
     private List<Transaction> origin;
-    @OneToMany(mappedBy = "destination", fetch = FetchType.EAGER)
-//    @JoinColumn(name = "trx_id")
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "destination", fetch = FetchType.LAZY)
     private List<Transaction> destination;
-    @OneToMany(targetEntity = Transaction.class, cascade = CascadeType.ALL)
-    private List<Transaction> transactions;
+
 
 
 

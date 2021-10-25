@@ -1,8 +1,5 @@
 package com.example.demo.user;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,13 +8,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.example.demo.account.Account;
-import com.example.demo.friends.Friend;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
@@ -58,11 +53,6 @@ public class User {
   @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = false)
   @JoinColumn(name = "account_id")
   private Account account;
-  
-  
-  @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "users")
-  private Set<Friend> friends = new HashSet<>();
-  
 
   public User(String username, String password, String email, String firstName,
       String lastName) {
