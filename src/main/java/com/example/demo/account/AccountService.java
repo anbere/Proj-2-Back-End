@@ -24,7 +24,7 @@ public class AccountService {
     {
         System.out.println("Reached getAccount in Service");
         Account acc = accountRepository.findById(id).get();
-        System.out.println(acc);
+        System.out.println("from acc service get acc: " + acc);
         return acc;
     }
 

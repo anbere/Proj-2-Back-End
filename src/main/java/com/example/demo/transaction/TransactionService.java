@@ -194,13 +194,4 @@ public class TransactionService {
         transaction.setStatus("success");
     }
 
-    public void deleteTransaction()
-    {
-
-    }
-
-//	public List<Transaction> findAll() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
 }

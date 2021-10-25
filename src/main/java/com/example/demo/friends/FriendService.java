@@ -21,9 +21,9 @@ public class FriendService {
 
 
 	@Autowired
-	public FriendService(FriendRepository friendRepo, UserRepository userRepo) {
-		this.friendRepo = friendRepo;
-		this.userRepo = userRepo;
+	public FriendService(FriendRepository friendRepository, UserRepository userRepository) {
+		this.friendRepository = friendRepository;
+		this.userRepository = userRepository;
 	}
 
 
@@ -41,9 +41,6 @@ public class FriendService {
 		System.out.println("After User");
 
 		//        UserDto userDto2 = modelMapper.map(user,UserDto.class);
-
-
-
 		Friend friend = new Friend();
 
 		User user1 = userRepo.findByUsername(userOrigin.getUsername()).get();
@@ -109,5 +106,4 @@ public class FriendService {
 		return friendUsers;
 
 	}
-
 }
