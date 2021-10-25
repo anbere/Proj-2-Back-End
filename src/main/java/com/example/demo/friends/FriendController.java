@@ -37,10 +37,8 @@ public class FriendController {
 		System.out.println("Below is User from FriendController");
 		System.out.println(user);
 		return ResponseEntity.ok(friendService.getFriends(user));
-		
 	}
-	
-	
+
 	@PostMapping("/{username}")
 	public ResponseEntity<User> addFriend(@RequestBody User user, @PathVariable String username ){
 		

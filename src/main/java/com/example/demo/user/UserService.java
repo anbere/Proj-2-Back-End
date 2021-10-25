@@ -63,7 +63,6 @@ public class UserService {
       if(userByEmail.isPresent()) {
         throw new IllegalStateException("Email is taken");
       }
-
     }
 
     if(!user.getUsername().matches(existing.getUsername()))
@@ -75,6 +74,7 @@ public class UserService {
     }
 
     user.setAccount(existing.getAccount());
+    user.setPassword(existing.getPassword());
 
     return userRepository.save(user);
   }

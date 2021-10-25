@@ -2,15 +2,14 @@ package com.example.demo.transaction;
 
 import com.example.demo.account.Account;
 import com.example.demo.account.AccountRepository;
+import com.example.demo.friends.Friend;
 import com.example.demo.user.User;
 import com.example.demo.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class TransactionService {
@@ -29,22 +28,68 @@ public class TransactionService {
 
     public List<Transaction> getTransactions()
     {
-        return transactionRepository.findAll();
+        List<Transaction> toReturn = transactionRepository.findAll();
+
+        for (Transaction tr : toReturn)
+        {
+                tr.setOriginUsername(userRepository.getById(tr.getOrigin().getId()).getUsername());
+            try{
+                tr.setDestinationUsername(userRepository.getById(tr.getDestination().getId()).getUsername());
+            }catch(NullPointerException e)
+            {
+                tr.setDestinationUsername("");
+            }
+        }
+
+        return toReturn;
     }
 
     public List<Transaction> getUserTransactions(String username)
     {
         Optional<User> optionalOrigin = userRepository.findByUsername(username);
         Account originAccount = optionalOrigin.get().getAccount();
-        List<Transaction> transactionList = transactionRepository.findByOrigin(originAccount);
-        return transactionList;
+
+        List<Transaction> toReturn = new ArrayList<>();
+
+        List<Transaction> transactionsByOrigin = transactionRepository.findByOrigin(originAccount);
+        List<Transaction> transactionsByDestination = transactionRepository.findByDestination(originAccount);
+
+        for (Transaction tr : transactionsByOrigin) {
+            toReturn.add(tr);
+
+        }
+        for (Transaction tr : transactionsByDestination) {
+            toReturn.add(tr);
+        }
+
+        for (Transaction tr : toReturn)
+        {
+            tr.setOriginUsername(userRepository.getById(tr.getOrigin().getId()).getUsername());
+            try{
+                tr.setDestinationUsername(userRepository.getById(tr.getDestination().getId()).getUsername());
+            }catch(NullPointerException e)
+            {
+                tr.setDestinationUsername("");
+            }
+        }
+
+        return toReturn;
     }
 
     public List<Transaction> getRequests(String type, String username)
     {
         Optional<User> requester = userRepository.findByUsername(username);
         Account requesterAccount = requester.get().getAccount();
-        return transactionRepository.findByTypeAndDestination(type, requesterAccount);
+        List<Transaction> toReturn = transactionRepository.findByTypeAndDestination(type, requesterAccount);
+
+        for (Transaction tr : toReturn)
+        {
+            tr.setOriginUsername(userRepository.getById(tr.getOrigin().getId()).getUsername());
+
+            tr.setDestinationUsername(userRepository.getById(tr.getDestination().getId()).getUsername());
+        }
+
+        return toReturn;
     }
 
     public Transaction payTransaction(Transaction transaction, String originUsername, String destinationUsername)
@@ -109,7 +154,7 @@ public class TransactionService {
             return transaction;
     }
 
-    public Transaction deposit(Transaction transaction, String username)
+    public Account deposit(Transaction transaction, String username)
     {
         Optional<User> depositor = userRepository.findByUsername(username);
         transaction.setType("Deposit");
@@ -121,21 +166,23 @@ public class TransactionService {
             double amount = transaction.getAmount();
             transaction.getOrigin().setBalance(balance + amount);
             transaction.setTime(LocalDateTime.now());
-            accountRepository.save(transaction.getOrigin());
+            Account toReturn = accountRepository.save(transaction.getOrigin());
             transaction.setStatus("success");
-            return transactionRepository.save(transaction);
+            transaction.setComment("deposit from bank account");
+            transactionRepository.save(transaction);
+            return toReturn;
             //System.out.println(transactionRepository.save(transaction));
         }
 
-        transaction.setStatus("failed");
-        transactionRepository.save(transaction);
+//        transaction.setStatus("failed");
+//        transactionRepository.save(transaction);
 
-        /*if(!depositor.isPresent())
-            throw new NoSuchElementException("This account does not exist");
+        if(!depositor.isPresent())
+            throw new IllegalStateException("This account does not exist");
         if(transaction.getAmount() < 0)
-            throw new IllegalStateException("Value is not valid");*/
+            throw new IllegalStateException("Value is not valid");
 
-         return transaction;
+            throw new IllegalStateException("Another strange error");
     }
 
     public Transaction requestTransaction(Transaction transaction, String requester, String payer)

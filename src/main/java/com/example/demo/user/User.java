@@ -29,9 +29,6 @@ import lombok.ToString;
 @Table
 public class User {
 
-	//	private UserRepository userRepo;
-	//	private FriendRepository friendRepo;
-
 	@Id
 	@SequenceGenerator(
 			name = "user_sequence",
@@ -58,7 +55,7 @@ public class User {
 
 
 public User(String username, String password, String email, String firstName,
-String lastName) {
+	String lastName) {
 	this.username = username;
 	this.password = password;
 	this.email = email;
