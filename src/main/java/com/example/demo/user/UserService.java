@@ -23,7 +23,6 @@ public class UserService {
   }
   
   
-
   public Optional<User> LoginCheck(String username, String password) {
     Optional<User> userByUsername = userRepository.findByUsername(username);
     if(userByUsername.isPresent() && userByUsername.get().getPassword().equals(password)){
@@ -75,7 +74,6 @@ public class UserService {
     }
 
     user.setAccount(existing.getAccount());
-
     return userRepository.save(user);
   }
 }
