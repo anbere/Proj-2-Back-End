@@ -1,6 +1,7 @@
 package com.example.demo.transaction;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -45,7 +46,7 @@ public class Transaction {
     private String type;
     private double amount;
     private String comment;
-    private LocalDate date;
+    private LocalDateTime time;
     private String status;
     
     @JsonIgnore
@@ -59,14 +60,14 @@ public class Transaction {
         this.type = type;
         this.amount = amount;
         this.comment = comment;
-        this.date = LocalDate.now();
-        this.status = "pending";
+        /*this.date = LocalDate.now();
+        this.status = "pending";*/
     }
 
     public Transaction(double amount)
     {
         this.amount = amount;
-        this.date = LocalDate.now();
-        this.status = "pending";
+        /*this.date = LocalDate.now();
+        this.status = "pending";*/
     }
 }

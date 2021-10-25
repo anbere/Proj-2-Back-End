@@ -1,9 +1,4 @@
 package com.example.demo.user;
-
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,14 +7,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.example.demo.account.Account;
-import com.example.demo.friends.Friend;
-import com.example.demo.friends.FriendRepository;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
@@ -77,52 +69,25 @@ public class User {
 //	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "users")
 //	private Set<Friend> friends = new HashSet<>();
 
+public User(String username, String password, String email, String firstName,
+String lastName) {
+this.username = username;
+this.password = password;
+this.email = email;
+this.firstName = firstName;
+this.lastName = lastName;
+}
 
-	public User(String username, String password, String email, String firstName,
-			String lastName) {
-		this.username = username;
-		this.password = password;
-		this.email = email;
-		this.firstName = firstName;
-		this.lastName = lastName;
-	}
+  public User(Long id, String username, String email, String firstName, String lastName) {
+    this.id = id;
+    this.username = username;
+    this.email = email;
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
 
-	public User(String username, String password) {
-		this.username = username;
-		this.password = password;
-	}
-
-//	@Override
-//	public String toString() {
-//		return "User{" +
-//				"id=" + id +
-//				", email='" + email + '\'' +
-//				", username='" + username + '\'' +
-//				", password='" + password + '\'' +
-//				", firstName='" + firstName + '\'' +
-//				", lastName='" + lastName + '\'' +
-//				'}';
-//	}
-
-	
-	
-	
-//	public void addFriend(String friend1, String friend2 ) {
-//		Optional<User> user1Exist = userRepo.findByUsername(friend1);
-//		Optional<User> user2Exist = userRepo.findByUsername(friend2);
-//
-//		
-//		if(user1Exist.isPresent() && user2Exist.isPresent()){
-//			Friend createFriend = new Friend();
-//
-//			createFriend.setUsers(user1Exist);
-//			
-//			
-//			
-//			
-//		}
-//		
-//		
-//	}
-
+  public User(String username, String password) {
+    this.username = username;
+    this.password = password;
+  }
 }

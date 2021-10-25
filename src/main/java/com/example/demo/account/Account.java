@@ -8,6 +8,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -47,6 +48,7 @@ public class Account {
 //    @OneToMany(targetEntity = Transaction.class, cascade = CascadeType.ALL)
 //    private List<Transaction> transactions;
 
+   /* private List<Transaction> transactions;*/
 
 
     public Account(double balance, String routingNumber)
