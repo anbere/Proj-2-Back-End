@@ -28,7 +28,9 @@ public class AccountController {
     @PutMapping
     public ResponseEntity<Account> addRoutingNumber(@RequestBody Account account)
     {
+//        System.out.println("account put request acc being received: " + account);
         Account acc = accountService.addRoutingNumber(account);
+        System.out.println("account put request: " + acc);
         return ResponseEntity.ok(acc);
     }
 }

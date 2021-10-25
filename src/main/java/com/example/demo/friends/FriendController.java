@@ -62,12 +62,6 @@ public class FriendController {
 			
 		}
 		
-		
-
 	}
-	
-	
-	
-	
 
 }

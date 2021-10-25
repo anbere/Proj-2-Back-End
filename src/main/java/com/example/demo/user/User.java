@@ -55,27 +55,15 @@ public class User {
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "account_id")
 	private Account account;
-	
-	
-//	@JsonIgnore
-//	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = false)
-//	@JoinColumn(name = "friend_id")
-//	private Friend friend;
-//	
-	
 
-//	
-//	@JsonIgnore
-//	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "users")
-//	private Set<Friend> friends = new HashSet<>();
 
 public User(String username, String password, String email, String firstName,
 String lastName) {
-this.username = username;
-this.password = password;
-this.email = email;
-this.firstName = firstName;
-this.lastName = lastName;
+	this.username = username;
+	this.password = password;
+	this.email = email;
+	this.firstName = firstName;
+	this.lastName = lastName;
 }
 
   public User(Long id, String username, String email, String firstName, String lastName) {

@@ -19,8 +19,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
-@ToString(exclude = {"origin", "destination"})
-@EqualsAndHashCode(exclude = {"origin", "destination"})
+@ToString (exclude = {"origin", "destination"})
+@EqualsAndHashCode (exclude = {"origin", "destination"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -55,14 +55,10 @@ public class Transaction {
         this.type = type;
         this.amount = amount;
         this.comment = comment;
-        /*this.date = LocalDate.now();
-        this.status = "pending";*/
     }
 
     public Transaction(double amount)
     {
         this.amount = amount;
-        /*this.date = LocalDate.now();
-        this.status = "pending";*/
     }
 }
